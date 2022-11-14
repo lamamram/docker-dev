@@ -75,4 +75,12 @@ REMARQUE: "container" est la sous commande par défaut: on peut l'omettre
 docker run --name demon -d --restart unless-stopped alpine:latest ping 8.8.8.8
 ```
 
+## miscellanées sur la manipulation de conteneurs
+
+1. téléchargement des images avant de lancer les conteneurs
+  * `docker pull image:tag` : par défaut les images sont recherchées et téléchargées depuis <hub.docker.com>
+  * `docker images` ou `docker image ls`: voir la liste des images docker en local
+
+2. docker run = docker create + docker start (pour des conteneur one shot)
+  * `docker create` reprend les arguments de docker run en créant le conteneur sans le démarrer
 
