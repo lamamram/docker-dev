@@ -18,3 +18,11 @@ docker container run alpine:latest echo "hello world !"
   2. sinon, il la télécharge (via `docker pull`)
   3. une image contient un **tag** qui précise la version ou la distrib de base
   4. une fois le conteneur créé, on exécute la commande en paramètre
+
+---
+
+* état du conteneur après exécution
+  - après avoir exécuté sa commande, le conteneur stoppe son exécution
+  - on ne peut plus rien exécuter dessus tant qu'on ne le redémarre pas
+  - pour voir les conteneurs en exécution: `docker ps`
+  - pour voir tous les conteneur existants: `docker ps -a`
