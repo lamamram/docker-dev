@@ -43,3 +43,12 @@ docker container run alpine:latest echo "hello world !"
   * on trouve on prompt sur le shell /bin/sh qui est la commande lancée par défaut avec l'image alpne
   * on remarque qu'on a plus un environnement ubuntu dans le conteneur
   * on sort du conteneur avec `exit`ou **CTRL+P+Q**
+
+3. se connecter dans un conteneur existant
+  * si stoppé, il faut démarrer le conteneur: `docker container start [ID | NAME]`
+  * une fois démarrer, exécuter une commane one shot: `docker container exec [ID | NAME] [CMD]`
+  * si on veut un prompt sur dans le conteneur: `docker container exec -it [ID | NAME] [CMD]`
+
+4. stopper un conteneur avant de le supprimer
+  *  un conteneur en état d'exécution (STATUS UP [duration] dans le docker ps) ne peut pas être supprimé
+  * il faut d'abord le stopper: `docker stop [ID | NAME]`
