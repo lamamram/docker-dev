@@ -1,6 +1,6 @@
 # Cycle de vie des conteneurs
 
-## lancer un conteneur
+## lancer un conteneur "one shot"
 
 1. on uitilise la commande `docker container run`
 2. deux paramètres:
@@ -29,3 +29,17 @@ docker container run alpine:latest echo "hello world !"
   - pour supprimer un conteneur: `docker container rm [ID | NAME]`
   - pour lancer un conteneur pour exécution commande + suppression:
     * `docker container run --rm alpine:latest echo "hello world !"`
+
+---
+## lancer un conteneur en mode interactif
+
+1. le mode interactif:
+  *  option **-i** : bloque le processus à l'intérieur du conteneur sur le flux d'entrée
+  * l'option **-t**: fournit un flux de sortie (tty) au process à l'intérieur du conteneur
+  * bonne pratique: donner un nom au conteneur avec l'option --name [name]
+  `docker container run --name alpine -it alpine:latest`
+
+2. résultat:
+  * on trouve on prompt sur le shell /bin/sh qui est la commande lancée par défaut avec l'image alpne
+  * on remarque qu'on a plus un environnement ubuntu dans le conteneur
+  * on sort du conteneur avec `exit`ou **CTRL+P+Q**
