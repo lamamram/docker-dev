@@ -90,3 +90,9 @@ docker run --name demon -d --restart unless-stopped alpine:latest ping 8.8.8.8
   * utilisation pour stopper ou supprimer une grappe de conteneur
     - `docker stop $(docker ps -f status=restarting -q)`: arrêt des conteneurs à l'état restarting
     - `docker rm  $(docker ps -a -f status=exited -q)` : suppression des conteneurs stoppés
+
+4. introspection
+  * afficher les logs d'exécution d'un conteneur: `docker logs [-f] [ID | NAME]`
+  * inspecter la configuration du conteneur: `docker inspect [ID | NAME]`
+   - filtrer l'objet d'inspection avec un template GO : `docker inspect -f '{{ .NetworkSettings.IPAddress }}' web_server`
+
