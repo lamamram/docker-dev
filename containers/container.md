@@ -84,3 +84,9 @@ docker run --name demon -d --restart unless-stopped alpine:latest ping 8.8.8.8
 2. docker run = docker create + docker start (pour des conteneur one shot)
   * `docker create` reprend les arguments de docker run en créant le conteneur sans le démarrer
 
+3. filtrer les listes:
+  * `docker ps [ --filter | -f ] [ name=regex | status=[running|exited|restarting...] | ancestor=image:tag]`
+  * `docker images -f reference=n*: filre les images selon leur nom avec des expressions globales (*, ** ...)`
+  * utilisation pour stopper ou supprimer une grappe de conteneur
+    - `docker stop $(docker ps -f status=restarting -q)`: arrêt des conteneurs à l'état restarting
+    - `docker rm  $(docker ps -a -f status=exited -q)` : suppression des conteneurs stoppés
