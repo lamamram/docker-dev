@@ -26,3 +26,6 @@ docker container run alpine:latest echo "hello world !"
   - on ne peut plus rien exécuter dessus tant qu'on ne le redémarre pas
   - pour voir les conteneurs en exécution: `docker ps`
   - pour voir tous les conteneur existants: `docker ps -a`
+  - pour supprimer un conteneur: `docker container rm [ID | NAME]`
+  - pour lancer un conteneur pour exécution commande + suppression:
+    * `docker container run --rm alpine:latest echo "hello world !"`
