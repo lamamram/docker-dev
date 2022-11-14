@@ -52,3 +52,27 @@ docker container run alpine:latest echo "hello world !"
 4. stopper un conteneur avant de le supprimer
   *  un conteneur en état d'exécution (STATUS UP [duration] dans le docker ps) ne peut pas être supprimé
   * il faut d'abord le stopper: `docker stop [ID | NAME]`
+
+---
+
+REMARQUE: "container" est la sous commande par défaut: on peut l'omettre
+
+---
+
+## lancement de conteneur en mode détaché
+
+1. pour les conteneur abritant des process de type démon: serveurs qui écoutent sur un port
+2. CtrL + C dans un conteneur arrête la commande et le conteneur
+3. pour laisser un conteneur indépendant du processus qui l'a lancé (un shell)
+  - **Ctrl + P + Q** en mode intéractif
+  - lancer le run avec l'option **-d**: "detached"
+4. pour les serveurs, ajouter l'option --restart unless-stopped
+  - redémarre auto si crash
+  - s'arrête sur un `docker stop`
+  - redémarrage auto avec la machine hôte (service docker)
+
+```
+docker run --name demon -d --restart unless-stopped alpine:latest ping 8.8.8.8
+```
+
+
