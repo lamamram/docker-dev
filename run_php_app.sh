@@ -37,7 +37,7 @@ docker run --name $server_container \
     -p 8080:80 \
     --net=app_net \
     -v /vagrant/confs/nginx/app_php.conf:/etc/nginx/conf.d/app_php.conf:ro \
-    nginx:1.22
+    nginx:1.22           
 
 # docker cp /vagrant/confs/nginx/app_php.conf $server_container:/etc/nginx/conf.d/app_php.conf
 # docker restart $server_container

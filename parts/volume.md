@@ -23,3 +23,11 @@
             volume-opt=type=nfs
             volume-opt=device=192.168.x.y:/storage
     ```
+
+2. les volumes nommés
+
+> nom, étiquette qui désigne un dossier par défaut (driver local) dans /var/lib/docker/volumes géré par docker
+
+* syntaxe rapide: `docker run ... -v [volume_name]:/path/to/dir`
+* syntaxe étendue: --mount type=volume, src=[volume_name]
+* création externe: `docker volume create [volume_name] --opt=...`
