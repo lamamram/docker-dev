@@ -15,12 +15,28 @@ docker network rm $app_network
 # vim -c ":set ff=unix" -c ":wq" run_php_app.sh pour changer crlf to lf
 
 # création du réseau
-docker network create $app_network --driver=bridge --subnet=172.19.0.0/24 --gateway=172.19.0.1
+docker network create $app_network \
+    --driver=bridge \
+    --subnet=172.19.0.0/24 \
+    --gateway=172.19.0.1
 
 # ajout des conteneurs + config
-docker run --name $logic_container -d --restart unless-stopped --net=$app_network bitnami/php-fpm:7.4-debian-11
-docker cp /vagrant/confs/php/index.php $logic_container:/srv/index.php
+# logique
+docker run --name $logic_container \
+    -d --restart unless-stopped \
+    --net=$app_network \
+    -v /vagrant/confs/php/index.php:/srv/index.php:ro
+    bitnami/php-fpm:7.4-debian-11
 
-docker run --name $server_container -d --restart unless-stopped -p 8080:80 --net=app_net nginx:1.22
+# le volume permet de se passer de cette commande
+# docker cp /vagrant/confs/php/index.php $logic_container:/srv/index.php
+
+# server
+docker run --name $server_container \
+    -d --restart unless-stopped \
+    -p 8080:80 \
+    --net=app_net \
+    nginx:1.22
+
 docker cp /vagrant/confs/nginx/app_php.conf $server_container:/etc/nginx/conf.d/app_php.conf
 docker restart $server_container

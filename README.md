@@ -7,3 +7,7 @@
 ## 2. communications ente conteneurs
 
 * [voir ici](./parts/network.md)
+
+## 3. persistence des données des conteneurs
+
+* [voir ici](./parts/volume.md)
