@@ -33,7 +33,9 @@
 3. copier le fichier app_php.conf sur le conteneur nginx, en éditant les 2 ips 
   - `docker cp [src_path] [(container_name | container_id):dest_path]`
   - `docker cp /vagrant/confs/nginx/app_php.conf app_web:/etc/nginx/conf.d/app_php.conf`
+  - verif: `docker exec -it app_web /bin/bash` puis `ls -al /etc/nginx/conf.d`
+  - ou directement: `docker exec -it app_web ls -al /etc/nginx/conf.d`
 4. copier le fichier index.php sur le conteneur php
   - `docker cp /vagrant/confs/php/index.php app_php:/srv/index.php`
 5. relancer le conteneur nginx
-  - docker restart ...
+  - docker restart app_web
