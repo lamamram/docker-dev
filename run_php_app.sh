@@ -12,7 +12,7 @@ logic_container=app_php
 
 # on peut supprimer un réseau s'il n'a plus de conteneur en exécution
 docker network rm $app_network
-
+# vim -c ":set ff=unix" -c ":wq" run_php_app.sh pour changer crlf to lf
 
 # création du réseau
 docker network create $app_network --driver=bridge --subnet=172.19.0.0/24 --gateway=172.19.0.1
