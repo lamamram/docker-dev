@@ -26,5 +26,5 @@
 
 ## communication inter conteneur sur docker0
 
-* lancer un conteneur php-fpm:7.4-debian-11 de nom app_php
+* lancer un conteneur bitnami/php-fpm:7.4-debian-11 de nom app_php
 * trouver l'ip du conteneur démarré

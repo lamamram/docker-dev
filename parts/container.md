@@ -65,7 +65,8 @@ REMARQUE: "container" est la sous commande par défaut: on peut l'omettre
 2. CtrL + C dans un conteneur arrête la commande et le conteneur
 3. pour laisser un conteneur indépendant du processus qui l'a lancé (un shell)
   - **Ctrl + P + Q** en mode intéractif
-  - lancer le run avec l'option **-d**: "detached"
+  - lancer le `docker run` avec l'option **-d**: "detached"
+  - le `docker start` démarre par défaut en mode détaché
 4. pour les serveurs, ajouter l'option --restart unless-stopped
   - redémarre auto si crash
   - s'arrête sur un `docker stop`
