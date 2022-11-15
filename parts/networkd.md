@@ -23,4 +23,8 @@
   - option **-P** ou **--publish-all**: un port random > 10000 disponible est selectionné pour tous les ports
     exposés
 
-  
+
+## communication inter conteneur sur docker0
+
+* lancer un conteneur php-fpm:7.4-debian-11 de nom app_php
+* trouver l'ip du conteneur démarré
