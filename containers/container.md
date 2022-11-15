@@ -80,6 +80,8 @@ docker run --name demon -d --restart unless-stopped alpine:latest ping 8.8.8.8
 1. téléchargement des images avant de lancer les conteneurs
   * `docker pull image:tag` : par défaut les images sont recherchées et téléchargées depuis <hub.docker.com>
   * `docker images` ou `docker image ls`: voir la liste des images docker en local
+  * `docker rmi [image:tag] ou docker image rm [image:tag]` pour supprimer une image 
+  * `docker image prune` : supprime toutes les images
 
 2. docker run = docker create + docker start
   * `docker create` reprend les arguments de docker run en créant le conteneur sans le démarrer
