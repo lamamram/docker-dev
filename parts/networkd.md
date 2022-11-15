@@ -6,4 +6,10 @@
   - 172.17.0.1 désigne l'hôte docker -> la vm
   - les conteneurs peuvent discuter sur ce réseau
   - par défaut, les conteneurs peuvent **exposer** des ports réseau pour la comm inter conteneur sur le réseau interne, pas depuis l'extérieur
-  - pour accéder à un conteneur depuis l'extérieur, on doit **publier** les ports réseau grâce à l'option **-p** ou **--publish** du docker run
+  - pour accéder à un conteneur depuis l'extérieur, on doit **publier** les ports réseau grâce à l'option **-p** ou **--publish** du `docker run -p port_externe:port_interne`
+
+  - ex:
+
+  ```
+  docker run --name app_web -d --restart unless-stopped -p 8080:80 nginx:1.22
+  ```
