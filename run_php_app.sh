@@ -9,7 +9,7 @@ db_container=app_db
 
 # tester l'existence des conteneurs
 # si oui, arrêt et suppression
-[[ -z $(docker ps -f name=$prefix -aq) ]] || (docker stop $server_container $logic_container $db_container && docker rm $server_container $logic_container $db_container)
+[[ -z $(docker ps -f name=$prefix -aq) ]] || (docker stop $(docker ps -f name=$prefix -aq) && docker rm $(docker ps -f name=$prefix -aq))
 
 # on peut supprimer un réseau s'il n'a plus de conteneur en exécution
 docker network rm $app_network
@@ -23,16 +23,17 @@ docker network create $app_network \
 
 # ajout des conteneurs + config
 # base de données
+
+# --env: variable d'environnement disponible uniquement dans l'environnement d'exécution au lancement du conteneur
+# -v: bind mount qui permet d'initialiser la base de donnée au lancement: le contenu de
+# docker-entrypoint-initdb.d sera exécuté par ordre alphabétique
+# -v db_data: volume nommé: récupération sur la vm de la base
 docker run --name app_db \
     -d --restart unless-stopped \
     --net=app_net \
-    # vairable d'environnement disponible uniquement dans l'environnement d'exécution au lancement du conteneur
     --env MARIADB_ROOT_PASSWORD=roottoor \
-    # bind mount qui permet d'initialiser la base de donnée au lancement: le contenu de
-    # docker-entrypoint-initdb.d sera exécuté par ordre alphabétique 
-    -v /vagrant/confs/mariadb/test.sql:/docker-entrypoint-initdb.d/test.sql \
-    # volume nommé: récupération sur la vm de la base
     -v db_data:/var/lib/mysql \
+    -v /vagrant/confs/mariadb/test.sql:/docker-entrypoint-initdb.d/test.sql \
     mariadb:10.6-focal
 
 
