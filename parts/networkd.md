@@ -24,7 +24,7 @@
     exposés
 
 
-## communication inter conteneur sur docker0
+## communication inter conteneur sur docker0 : version manuelle
 
 1. lancer un conteneur bitnami/php-fpm:7.4-debian-11 de nom app_php
   - `docker run --name app_php -d --restart unless-stopped bitnami/php-fpm:7.4-debian-11`
@@ -39,3 +39,13 @@
   - `docker cp /vagrant/confs/php/index.php app_php:/srv/index.php`
 5. relancer le conteneur nginx
   - docker restart app_web
+
+## comm inter conteneur sur docker0: utilisation d'alias réseaux
+
+1. le conteneur nginx dépend de la présence du conteneur php => commencer par le conteneur php
+  - `docker run --name app_php -d --restart unless-stopped bitnami/php-fpm:7.4-debian-11`
+  - `docker cp /vagrant/confs/php/index.php app_php:/srv/index.php`
+
+2. on peut lancer nginx en lui indiquant un alias réseau pour le contneur php avec l'option link
+  - `docker run --name app_web -d --restart unless-stopped -p 192.168.1.30:8080:80 --link app_php nginx:1.22`
+  - il suffit de remplacer l'ip du conteneur php par l'alias "app_php" dans le fichier de conf
