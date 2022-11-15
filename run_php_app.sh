@@ -31,6 +31,8 @@ docker run --name app_db \
     # bind mount qui permet d'initialiser la base de donnée au lancement: le contenu de
     # docker-entrypoint-initdb.d sera exécuté par ordre alphabétique 
     -v /vagrant/confs/mariadb/test.sql:/docker-entrypoint-initdb.d/test.sql \
+    # volume nommé: récupération sur la vm de la base
+    -v db_data:/var/lib/mysql \
     mariadb:10.6-focal
 
 
