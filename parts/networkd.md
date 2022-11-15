@@ -50,3 +50,20 @@
   - `docker run --name app_web -d --restart unless-stopped -p 192.168.1.30:8080:80 --link app_php nginx:1.22`
   - on peut aussi gérer soit même l'alias réseau avec `--link php.formation.lan:app_php`
   - il suffit de remplacer l'ip du conteneur php par l'alias "app_php" dans le fichier de conf
+
+
+## les commandes docker network
+
+1. voir les réseaux disponibles
+  * `docker network ls`
+  * il y a 3 réseaux par défaut:
+    - le réseau bridge, de type bridge, interface docker0 172.17.0.1/24
+    - le réseau host, qui redirige directement les conteneurs sur la vm (enp0S3 et enp0s8)
+    - le réseau null, qui n'associe aucune interface ni aucune ip aux conteneurs
+
+2. inspecter un réseau
+  * `docker network inspect -f 'table {{ .Containers }}' bridge`
+
+3. création d'un réseau custom:
+  * `docker network create app_net`: dirver bridge par défaut, subnet 172.18.0.0 et gateway 172.18.0.1
+  * `docker network create app_net --driver=bridge --subnet=172.19.0.0/24 --gateway=172.19.0.1`
