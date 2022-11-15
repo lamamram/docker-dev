@@ -48,4 +48,5 @@
 
 2. on peut lancer nginx en lui indiquant un alias réseau pour le contneur php avec l'option link
   - `docker run --name app_web -d --restart unless-stopped -p 192.168.1.30:8080:80 --link app_php nginx:1.22`
+  - on peut aussi gérer soit même l'alias réseau avec `--link php.formation.lan:app_php`
   - il suffit de remplacer l'ip du conteneur php par l'alias "app_php" dans le fichier de conf
