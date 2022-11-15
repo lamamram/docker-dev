@@ -40,7 +40,7 @@ docker container run alpine:latest echo "hello world !"
   `docker container run --name alpine -it alpine:latest`
 
 2. résultat:
-  * on trouve on prompt sur le shell /bin/sh qui est la commande lancée par défaut avec l'image alpne
+  * on trouve un prompt sur le shell /bin/sh qui est la commande lancée par défaut avec l'image alpine
   * on remarque qu'on a plus un environnement ubuntu dans le conteneur
   * on sort du conteneur avec `exit`ou **CTRL+P+Q**
 
@@ -61,7 +61,7 @@ REMARQUE: "container" est la sous commande par défaut: on peut l'omettre
 
 ## lancement de conteneur en mode détaché
 
-1. pour les conteneur abritant des process de type démon: serveurs qui écoutent sur un port
+1. pour les conteneurs abritant des process de type démon: serveurs qui écoutent sur un port
 2. CtrL + C dans un conteneur arrête la commande et le conteneur
 3. pour laisser un conteneur indépendant du processus qui l'a lancé (un shell)
   - **Ctrl + P + Q** en mode intéractif
@@ -81,12 +81,13 @@ docker run --name demon -d --restart unless-stopped alpine:latest ping 8.8.8.8
   * `docker pull image:tag` : par défaut les images sont recherchées et téléchargées depuis <hub.docker.com>
   * `docker images` ou `docker image ls`: voir la liste des images docker en local
 
-2. docker run = docker create + docker start (pour des conteneur one shot)
+2. docker run = docker create + docker start
   * `docker create` reprend les arguments de docker run en créant le conteneur sans le démarrer
+  * `docker start` lance par défaut en mode détaché
 
 3. filtrer les listes:
   * `docker ps [ --filter | -f ] [ name=regex | status=[running|exited|restarting...] | ancestor=image:tag]`
-  * `docker images -f reference=n*: filre les images selon leur nom avec des expressions globales (*, ** ...)`
+  * `docker images -f reference=n*: filtre les images selon leur nom avec des expressions globales (*, ** ...)`
   * utilisation pour stopper ou supprimer une grappe de conteneur
     - `docker stop $(docker ps -f status=restarting -q)`: arrêt des conteneurs à l'état restarting
     - `docker rm  $(docker ps -a -f status=exited -q)` : suppression des conteneurs stoppés
