@@ -21,6 +21,6 @@ docker network create $app_network --driver=bridge --subnet=172.19.0.0/24 --gate
 docker run --name $logic_container -d --restart unless-stopped --net=$app_network bitnami/php-fpm:7.4-debian-11
 docker cp /vagrant/confs/php/index.php $logic_container:/srv/index.php
 
-docker run --name $server_container -d --restart unless-stopped -p 192.168.1.30:8080:80 --net=app_net nginx:1.22
+docker run --name $server_container -d --restart unless-stopped -p 8080:80 --net=app_net nginx:1.22
 docker cp /vagrant/confs/nginx/app_php.conf $server_container:/etc/nginx/conf.d/app_php.conf
 docker restart $server_container
