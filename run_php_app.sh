@@ -25,7 +25,7 @@ docker network create $app_network \
 docker run --name $logic_container \
     -d --restart unless-stopped \
     --net=$app_network \
-    -v /vagrant/confs/php/index.php:/srv/index.php:ro
+    -v /vagrant/confs/php/index.php:/srv/index.php:ro \
     bitnami/php-fpm:7.4-debian-11
 
 # le volume permet de se passer de cette commande
