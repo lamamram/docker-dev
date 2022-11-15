@@ -67,3 +67,18 @@
 3. création d'un réseau custom:
   * `docker network create app_net`: dirver bridge par défaut, subnet 172.18.0.0 et gateway 172.18.0.1
   * `docker network create app_net --driver=bridge --subnet=172.19.0.0/24 --gateway=172.19.0.1`
+
+4. connexion d'un conteneur à un réseau
+  * `docker network connect app_net app_web`
+  * `docker network disconnect app_net app_web`
+
+5. communication inter conteneur sur un réseau bridge custom
+  * ajout des conteneurs sur un réseau au lancement avec ip fixe ou non
+    - `docker run ...... --net=[network_name] [--ip=[ip fixe]]`
+    - `docker network connect ...`
+
+  ```
+  docker run --name app_web -d --restart unless-stopped -p 192.168.1.30:8080:80 --net=app_net nginx:1.22
+  ```
+
+  * sur un réseau bridge custom, les nom de conteneurs sont des alias réseaux par défaut => pas de **--link**
