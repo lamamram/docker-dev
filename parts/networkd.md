@@ -26,5 +26,13 @@
 
 ## communication inter conteneur sur docker0
 
-* lancer un conteneur bitnami/php-fpm:7.4-debian-11 de nom app_php
-* trouver l'ip du conteneur démarré
+1. lancer un conteneur bitnami/php-fpm:7.4-debian-11 de nom app_php
+  - `docker run --name app_php -d --restart unless-stopped bitnami/php-fpm:7.4-debian-11`
+2. trouver l'ip du conteneur démarré
+  - 
+3. copier le fichier app_php.conf sur le conteneur nginx, en éditant les 2 ips 
+  - ???
+4. copier le fichier index.php sur le conteneur php
+  - ???
+5. relancer le conteneur nginx
+  - docker restart ...
