@@ -19,10 +19,13 @@
 
 ----
 
-4. Construire une image nommée  tomcat:1.0 à partir de ce Dockerfile
-5. Démarrer un nouveau conteneur à partir de cette image :
-6. ajouter un vhost dans l'image httpd pour tester la cnx à tomcat
+4. construire une image tomcat
+5. ajouter un vhost dans l'image httpd pour tester la cnx à tomcat
   * fichier tomcatsrv.conf à éditer
+6. tester la communication entre httpd et tomcat sur l'url formation.lan:8081
+  * créer un réseau docker
+  * exécuter les dockre run en nommant judicieusement les conteneurs
+
 7. ajouter un vhost dans l'image httpd pour tester l'accès à l'appli .wat
   * fichier tomcatsample.conf à éditer
 8. Tester l'accès depuis un navigateur sur le docker hôte (via httpd)
