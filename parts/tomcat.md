@@ -11,7 +11,7 @@
     * Installer le package java avec yum install
     * Se positionner dans le répertoire "/opt/tomcat/webapps"
     * Récuperer l'app de test https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war>
-    * Exposer un port entre 8082 et 8089 pour tomcat
+    * Exposer le port 8080 pour tomcat
     * lancer le serveur (ENTRYPOINT + CMD) : doc tomcat pour la commande
 
 ----

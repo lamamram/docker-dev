@@ -22,3 +22,24 @@ RUN yum install java -yq
 RUN yum clean all
 # virer le tar et gz et le dossier decompressé
 RUN rm -rf apache-tomcat*
+
+# désignation du dossier à partir duquel:
+#  - on exécute la directive CMD (et ENTRYPOINT)
+#  - on exécute les commandes via docker exec ou docker run (avec ou sans -it)
+WORKDIR /opt/tomcat/webapps
+
+# possibilité de créer un utilisateur tomcat avec des droits d'exécution restreints
+# à tomcat
+# USER tomcat
+
+# installation d'appications dans le repertoire dédié
+RUN curl -O https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war
+
+# déclarer un volume nommé depuis l'image pour persistence
+VOLUME [ "/opt/tomcat/webapps" ]
+
+# ouverture du conteneur sur le port tomcat par défaut
+EXPOSE 8080
+
+# lancer le serveur
+CMD [ "/opt/tomcat/bin/catalina.sh", "run" ]
