@@ -6,7 +6,7 @@
     * Partir d'une image de base : centos:8
     * Préciser des labels (idéal pour donner des informations lors d'un docker image inspect)
     * Créer un répertoire /opt/tomcat
-    * Récupérer le fichier exécutable : https://downloads.apache.org/tomcat/tomcat-8/v8.5.83/bin/ avec curl -O
+    * Récupérer le fichier exécutable : https://downloads.apache.org/tomcat/tomcat-8/v8.5.83/bin/apache-tomcat-8.5.83.tar.gz avec curl -O
     * Décompresser l'archive et déplacer tous le contenu dans /opt/tomcat/
     * Installer le package java avec yum install
     * Se positionner dans le répertoire "/opt/tomcat/webapps"
