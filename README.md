@@ -15,3 +15,7 @@
 ## 4. construction d'images
 
 * [voir ici](./parts/build.md)
+
+## 5. atelier httpd & tomcat
+
+* [voir ici](./parts/tomcat.md)

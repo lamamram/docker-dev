@@ -11,6 +11,12 @@ LABEL created_at.month="2022-11"
 LABEL stack="java_app"
 LABEL stack.version="1.0.0"
 
+# directive permettant d'injecter des valeur au moment du docker build
+ARG JAVA_APP
+
+# variables d'environnement
+ENV VHOST=${JAVA_APP}
+
 # copie de fichiers ou dossier de l'extérieur vers l'image
 COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 
@@ -18,7 +24,7 @@ COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 RUN mkdir /usr/local/apache2/conf/sites
 
 # copier les confs vhosts
-COPY tomcatsrv.conf /usr/local/apache2/conf/sites/tomcatsrv.conf
+COPY ${VHOST}.conf /usr/local/apache2/conf/sites/${VHOST}.conf
 
 # exposer un port (ouvrir sur les réseaux accesibles au conteneur)
 # ici pas utile car l'image de base expose déjà le port
