@@ -47,7 +47,6 @@ docker run --name app_db \
     -v /vagrant/confs/mariadb/test.sql:/docker-entrypoint-initdb.d/test.sql \
     mariadb:10.6-focal
 
-
 # logique
 docker run --name $logic_container \
     -d --restart unless-stopped \
