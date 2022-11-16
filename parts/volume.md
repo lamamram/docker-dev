@@ -8,7 +8,7 @@
 
 ## types de "volumes"
 
-1. les "bind mounts": 
+1. les "bind mounts":
   * servent à injecter des contenus de type config gérés par l'utilisateur docker
   * on va associer des chemins à l'extérieur du conteneur à des chemins à l'intérieur du conteneur
     - syntaxe courte: `docker run ... -v [chemin_externe]:[chemin_interne]:ro`

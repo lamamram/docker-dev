@@ -46,7 +46,7 @@
   - `docker run --name app_php -d --restart unless-stopped bitnami/php-fpm:7.4-debian-11`
   - `docker cp /vagrant/confs/php/index.php app_php:/srv/index.php`
 
-2. on peut lancer nginx en lui indiquant un alias réseau pour le contneur php avec l'option link
+2. on peut lancer nginx en lui indiquant un alias réseau pour le contneur php avec l'option **--link**
   - `docker run --name app_web -d --restart unless-stopped -p 192.168.1.30:8080:80 --link app_php nginx:1.22`
   - on peut aussi gérer soit même l'alias réseau avec `--link php.formation.lan:app_php`
   - il suffit de remplacer l'ip du conteneur php par l'alias "app_php" dans le fichier de conf
@@ -81,4 +81,4 @@
   docker run --name app_web -d --restart unless-stopped -p 192.168.1.30:8080:80 --net=app_net nginx:1.22
   ```
 
-  * sur un réseau bridge custom, les nom de conteneurs sont des alias réseaux par défaut => pas de **--link**
+  * sur un réseau bridge custom, les noms de conteneurs sont des alias réseaux par défaut => pas de **--link**
