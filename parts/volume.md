@@ -44,4 +44,4 @@
   - auquel on attache les volumes de la base de donnée (--volumes-from) 
   - pour exécuter le backup (tar cvf ...)
   - et le récupérer en dehors du conteneur (-v /vagrant:/backup)
-  - `docker run --rm --name backup --volumes-from app_db -v /vagrant:/backup alpine:latest tar cvf /backup/maria.tar /var/lib/mysql`
+  - `docker run --rm --net=none --name backup --volumes-from app_db -v /vagrant:/backup alpine:latest tar cvf /backup/maria.tar /var/lib/mysql`
