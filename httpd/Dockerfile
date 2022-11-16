@@ -11,3 +11,5 @@ LABEL created_at.month="2022-11"
 LABEL stack="java_app"
 LABEL stack.version="1.0.0"
 
+# copie de fichiers ou dossier de l'extérieur vers l'image
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
