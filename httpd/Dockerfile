@@ -17,6 +17,9 @@ COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 # créer le répertoire de vhosts avec une directive RUN
 RUN mkdir /usr/local/apache2/conf/sites
 
+# copier les confs vhosts
+COPY tomcatsrv.conf /usr/local/apache2/conf/sites/tomcatsrv.conf
+
 # exposer un port (ouvrir sur les réseaux accesibles au conteneur)
 # ici pas utile car l'image de base expose déjà le port
 EXPOSE 80
