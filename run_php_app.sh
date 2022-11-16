@@ -12,7 +12,15 @@ db_container=app_db
 [[ -z $(docker ps -f name=$prefix -aq) ]] || (docker stop $(docker ps -f name=$prefix -aq) && docker rm $(docker ps -f name=$prefix -aq))
 
 # on peut supprimer un réseau s'il n'a plus de conteneur en exécution
-docker network rm $app_network
+# docker network rm $app_network
+# suppression complète des réseaux ne contenant pas de conteneurs en exécution
+docker network prune -f
+
+# suppression du volume nommé s'il existe
+# docker volume rm db_data
+# suppression complète des volumes n'étant pas attachés à des conteneurs en exécution
+docker volume prune -f
+
 # vim -c ":set ff=unix" -c ":wq" run_php_app.sh pour changer crlf to lf
 
 # création du réseau
@@ -34,7 +42,7 @@ docker network create $app_network \
 docker run --name app_db \
     -d --restart unless-stopped \
     --net=$app_network \
-    --env-file /vagrant/.env
+    --env-file /vagrant/.env \
     -v db_data:/var/lib/mysql \
     -v /vagrant/confs/mariadb/test.sql:/docker-entrypoint-initdb.d/test.sql \
     mariadb:10.6-focal

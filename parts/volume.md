@@ -31,3 +31,17 @@
 * syntaxe rapide: `docker run ... -v [volume_name]:/path/to/dir`
 * syntaxe étendue: --mount type=volume, src=[volume_name]
 * création externe: `docker volume create [volume_name] --opt=...`
+
+3. volumes anonymes:
+
+* volume chargé dans un conteneur sans son nom
+  - utilise le paramètre --volumes-from qui attache les volumes de conteneurs existant à un nouveau conteneur
+  - utilisé pour le backup
+
+* ex: backup de mariadb:
+  - on utilise un conteneur 
+  - éphémère (--rm) 
+  - auquel on attache les volumes de la base de donnée (--volumes-from) 
+  - pour exécuter le backup (tar cvf ...)
+  - et le récupérer en dehors du conteneur (-v /vagrant:/backup)
+  - `docker run --rm --name backup --volumes-from app_db -v /vagrant:/backup alpine:latest tar cvf /backup/maria.tar /var/lib/mysql`
