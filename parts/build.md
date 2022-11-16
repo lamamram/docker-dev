@@ -26,3 +26,9 @@
 * `docker build -t [image_name:tag_name] .` : exéuté depuis le dossier contenant le Dockerfile
 
 *  `docker build --build-arg KEY=value -t [image_name:tag_name] .`: pour injecter des valeurs aux directives ARG
+
+4. administration des images buildées
+
+* si un build se passe mal, l'image peut se trouver sans nom ni tag => "dangling"
+  - on peut filtrer la liste des images avec `docker image ls -f dangling=true`
+  - on peut les supprimer avec `docker rmi $(docker images -f dangling=true -q)`
