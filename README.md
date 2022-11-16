@@ -11,3 +11,7 @@
 ## 3. persistence des données des conteneurs
 
 * [voir ici](./parts/volume.md)
+
+## 4. construction d'images
+
+* [voir ici](./parts/build.md)
