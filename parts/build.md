@@ -32,3 +32,12 @@
 * si un build se passe mal, l'image peut se trouver sans nom ni tag => "dangling"
   - on peut filtrer la liste des images avec `docker image ls -f dangling=true`
   - on peut les supprimer avec `docker rmi $(docker images -f dangling=true -q)`
+
+5. construction d'une image à partir d'un conteneur
+
+* on lance un conteneur à partir d'une image de base
+* on exécute dans le conteneur (-it) des commandes d'install / de config
+* on nettoie avant de sortir
+* on arrête si besoin le conteneur (status exited)
+* `docker commit -a "author" -m "comment" [container_name] [image_name:tag_name]`
+  - creation d'une nouvelle image à partir du conteneur précédent
