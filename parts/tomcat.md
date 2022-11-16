@@ -24,7 +24,7 @@
   * fichier tomcatsrv.conf à éditer
 6. tester la communication entre httpd et tomcat sur l'url formation.lan:8081
   * créer un réseau docker
-  * exécuter les dockre run en nommant judicieusement les conteneurs
+  * exécuter les docker run en nommant judicieusement les conteneurs
 
 7. ajouter un vhost dans l'image httpd pour tester l'accès à l'appli .wat
   * fichier tomcatsample.conf à éditer
