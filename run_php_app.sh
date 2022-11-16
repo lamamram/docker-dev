@@ -28,10 +28,13 @@ docker network create $app_network \
 # -v: bind mount qui permet d'initialiser la base de donnée au lancement: le contenu de
 # docker-entrypoint-initdb.d sera exécuté par ordre alphabétique
 # -v db_data: volume nommé: récupération sur la vm de la base pour backup / restore
+# --env MARIADB_ROOT_PASSWORD=roottoor \
+# on préferera --env-file pour charger un fichier contenant plusieurs variables
+# d'environnment et ainsi cacher leurs valeurs 
 docker run --name app_db \
     -d --restart unless-stopped \
     --net=$app_network \
-    --env MARIADB_ROOT_PASSWORD=roottoor \
+    --env-file /vagrant/.env
     -v db_data:/var/lib/mysql \
     -v /vagrant/confs/mariadb/test.sql:/docker-entrypoint-initdb.d/test.sql \
     mariadb:10.6-focal
