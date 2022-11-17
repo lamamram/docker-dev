@@ -76,3 +76,4 @@ obj:
 * lancer uniquement les services avec un profile donné:
   - `docker compose --profile [profile_name] up -d`
   - `docker compose --profile [profile_name] down`
+  - attention, le docker compose up simple ne sélectionne plus aucun conteneur !!!

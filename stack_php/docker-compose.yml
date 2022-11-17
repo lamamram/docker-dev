@@ -9,15 +9,18 @@ services:
   app_web:
     container_name: app_web
     image: nginx:1.22
+    # liste de conteneurs à démarrer avant le conteneur courant
+    depends_on:
+      - app_php
     restart: unless-stopped
     ports:
       - 8080:80
-    # volumes:
-    #   # - type: bind
-    #   #   source: /vagrant/confs/nginx/app_php.conf
-    #   #   target: /etc/nginx/conf.d/app_php.conf
-    #   #   read_only: true
-    #   - /vagrant/confs/nginx/app_php.conf:/etc/nginx/conf.d/app_php.conf:ro
+    volumes:
+      # - type: bind
+      #   source: /vagrant/confs/nginx/app_php.conf
+      #   target: /etc/nginx/conf.d/app_php.conf
+      #   read_only: true
+        - /vagrant/confs/nginx/app_php.conf:/etc/nginx/conf.d/app_php.conf:ro
     networks:
       # association avec ip par défaut
       - stack_php
@@ -30,10 +33,40 @@ services:
       - stack=stack_php
       - stack.version=1.0.0
     # tags pour lancer le docker compose
-    profiles:
-      - debug
-      - prod
+    # profiles:
+    #   - debug
+    #   - prod
+  
+  app_php:
+    image: bitnami/php-fpm:7.4-debian-11
+    depends_on:
+      - app_db
+    container_name: app_php
+    restart: unless-stopped
+    volumes:
+      - /vagrant/confs/php/index.php:/srv/index.php:ro
+    networks:
+      - stack_php
+    # profiles:
+    #   - prod
+  
 
+  app_db:
+    container_name: app_db
+    image: mariadb:10.6-focal
+    networks:
+      - stack_php
+    env_file:
+      - /vagrant/.env
+    restart: unless-stopped
+    volumes:
+      - /vagrant/confs/mariadb/test.sql:/docker-entrypoint-initdb.d/test.sql
+      - db_data:/var/lib/mysql
+
+# volumes nommés à déclarer ici
+volumes:
+  db_data:
+    name: db_data
 
 
 networks:
