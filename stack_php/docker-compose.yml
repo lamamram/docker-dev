@@ -1,0 +1,20 @@
+---
+# --- signifie "ici document yaml donc un arbre de clé"
+# version de la syntaxe != version de docker-compose (dc)
+version: '3.9'
+
+# service = conteneur
+services:
+  # nom du service (arbitraire)
+  app_web:
+    container_name: app_web
+    image: nginx:1.22
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    volumes:
+      # - type: bind
+      #   source: /vagrant/confs/nginx/app_php.conf
+      #   target: /etc/nginx/conf.d/app_php.conf
+      #   read_only: true
+      - /vagrant/confs/nginx/app_php.conf:/etc/nginx/conf.d/app_php.conf:ro

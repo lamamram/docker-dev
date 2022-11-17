@@ -61,3 +61,12 @@ obj:
     - key: value
       key2: value2
 ```
+
+## syntaxe docker compose
+
+* voir les fichiers docker-compose.yml
+
+## lancement via docker compose
+
+* dans le dossier contenant le fichier docker-compose.yml
+* `docker compose up -d` pour lancer la stack en mode détaché
