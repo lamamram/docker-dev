@@ -80,3 +80,14 @@ obj:
 
 * en cas de volumes nommés, le down ne les supprime pas (logique)
   - pour tout supprimer: `docker compose down -v`
+
+## templating dans docker compose
+
+1. remplacer le port 9000 dans la conf ngnix par ${PHP_PORT}
+2. utiliser envsusbst pour remplacer cette variable par sa valeur
+   dans le fichier
+   - envsubst < [template] > [fichier interpolé]
+   - remplacer le template par le fchier interpolé
+3. modifier le docker-compose.yml pour
+  - injecter la variable d'environnement dans le conteneur de façon masquée
+  - trouver le moyen sur l'image nginx pour exécuter la commande envsubst avant de lancer le serveur (cf doc, github, ...)
