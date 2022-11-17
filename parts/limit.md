@@ -2,7 +2,7 @@
 
 ## setup
 
-* utilisation de l'image progrium/stress
+* utilisation de l'image **progrium/stress**
 
 
 ## limiter l'accès mémoire
