@@ -23,3 +23,7 @@
 ## 6. limitations des resources conteneurs
 
 * [voir ici](./parts/limit.md)
+
+## 7. utilisation de docker compose
+
+* [voir ici](./parts/compose.md)
