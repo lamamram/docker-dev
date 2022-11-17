@@ -27,3 +27,7 @@
 ## 7. utilisation de docker compose
 
 * [voir ici](./parts/compose.md)
+
+## 8. registre d'images privé
+
+* [voir ici](./parts/registry.md)
