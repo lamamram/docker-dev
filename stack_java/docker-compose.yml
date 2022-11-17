@@ -1,0 +1,42 @@
+---
+version: '3.9'
+
+services:
+  java_web:
+    # nom et tag de l'image à générer si l'image n'existe pas
+    image: java_httpd:1.0
+    # context de build
+    build:
+      context: ../httpd
+      args:
+        - JAVA_APP=tomcatsample
+    container_name: java_web  
+    depends_on:
+      - java_tomcat
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    networks:
+      - stack_java
+  
+  java_tomcat:
+    # build sur une ligne: chemin vers le Dockerfile
+    # nom et tag de l'image générée par défaut
+    # pas d'arguments
+    build: ../tomcat
+    # image: java_tomcat:1.0
+    container_name: tomcat
+    restart: unless-stopped
+    networks:
+      - stack_java
+  
+networks:
+  stack_java:
+    driver: bridge
+    name: stack_java
+    # config avancée
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
