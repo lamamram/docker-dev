@@ -95,3 +95,11 @@ obj:
 4. aller plus loin
   - modifier le port écouté sut le conteneur php => /opt/bitnami/php/etc/php-fpm.d/www.conf
   - ajouter un Dockerfile qui expose le port pointé par la variable d'environnement PHP_PORT
+
+
+## build d'image dans docker compose
+
+1. fabriquer le docker-compose.yml de la stack java
+  - créer un dossier stack_java
+
+2. builder le dockerfile dans le fichier de conf avec arguments
