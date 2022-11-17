@@ -3,6 +3,10 @@
 ## setup
 
 * utilisation de l'image **progrium/stress**
+  - `docker pull progrium/stress`
+  - `docker run --rm progrium/stress --help`
+* utilisation du paquet ctop
+  - `sudo apt-get update && sudo apt-get install -y ctop`
 
 
 ## limiter l'accès mémoire
