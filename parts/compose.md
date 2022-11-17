@@ -77,3 +77,6 @@ obj:
   - `docker compose --profile [profile_name] up -d`
   - `docker compose --profile [profile_name] down`
   - attention, le docker compose up simple ne sélectionne plus aucun conteneur !!!
+
+* en cas de volumes nommés, le down ne les supprime pas (logique)
+  - pour tout supprimer: `docker compose down -v`
