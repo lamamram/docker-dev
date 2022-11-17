@@ -30,5 +30,7 @@ services:
       - REGISTRY_AUTH=htpasswd
       - REGISTRY_AUTH_HTPASSWD_REALM="Registry Realm"
       - REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd
+    # on utilise les labels dc pour flécher les requêtes dans 
+    # traefik sur les conteneur à partir d'un nom de domaine
     labels:
       - "traefik.http.routers.registry.rule=Host(`registry.lan`)"
