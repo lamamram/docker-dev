@@ -19,3 +19,7 @@
 ## 5. atelier httpd & tomcat
 
 * [voir ici](./parts/tomcat.md)
+
+## 6. limitations des resources conteneurs
+
+* [voir ici](./parts/limit.md)

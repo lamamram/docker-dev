@@ -15,7 +15,7 @@
 * conseillé: directive LABEL pour ajouter des méta et filtrer les conteneurs
 * COPY et RUN pour installer des fichiers et des paquets sur l'image
 * optimiser les directies RUN
-* WORKDIR, USER: pour selecitonner l'utilisateur et le dossier home sur le conteneur
+* WORKDIR, USER: pour selectionner l'utilisateur et le dossier home sur le conteneur
 * EXPOSE pour déclarer les ports ouverts aux autres conteneurs
 * ENTRYPOINT, CMD pour lancer une commande par défaut
 
