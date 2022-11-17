@@ -13,6 +13,8 @@ services:
     depends_on:
       - app_php
     restart: unless-stopped
+    env_file:
+      - /vagrant/.env
     ports:
       - 8080:80
     volumes:
@@ -20,7 +22,9 @@ services:
       #   source: /vagrant/confs/nginx/app_php.conf
       #   target: /etc/nginx/conf.d/app_php.conf
       #   read_only: true
-        - /vagrant/confs/nginx/app_php.conf:/etc/nginx/conf.d/app_php.conf:ro
+        - /vagrant/confs/nginx/app_php.conf:/home/app_php.conf
+        # script de substition de variables à éxecuter au moment de l'entrypoint
+        - /vagrant/stack_php/subst.sh:/docker-entrypoint.d/subst.sh
     networks:
       # association avec ip par défaut
       - stack_php
