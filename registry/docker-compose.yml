@@ -1,0 +1,15 @@
+---
+version: '3.9'
+
+services:
+  reverse_proxy:
+    image: traefik:v2.0
+    ports:
+      - 8082:80
+    # traefik a besoin d'accéder au daemon docker
+    # on passe par une socket unix: /var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # la clé command représente la commande du docker run
+    # on peut aussi redéfinir entrypoint:
+    command: --api.insecure=true --providers.docker
