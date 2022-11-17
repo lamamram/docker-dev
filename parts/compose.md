@@ -70,3 +70,9 @@ obj:
 
 * dans le dossier contenant le fichier docker-compose.yml
 * `docker compose up -d` pour lancer la stack en mode détaché
+  - `docker compose down` pour supprimer la stack
+  - par défaut création / suppression des réseaux
+
+* lancer uniquement les services avec un profile donné:
+  - `docker compose --profile [profile_name] up -d`
+  - `docker compose --profile [profile_name] down`

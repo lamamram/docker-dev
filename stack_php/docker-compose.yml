@@ -24,13 +24,25 @@ services:
       # association avancée
       # stack_php:
       #   ipv4_address: 172.19.0.4
+    # idem Dockerfile
+    labels:
+      - author=matt
+      - stack=stack_php
+      - stack.version=1.0.0
+    # tags pour lancer le docker compose
+    profiles:
+      - debug
+      - prod
+
+
 
 networks:
   stack_php:
     driver: bridge
+    name: stack_php
     # config avancée
     ipam:
       driver: default
       config:
         - subnet: 172.19.0.0/24
-          gateway: 172.10.0.1
+          gateway: 172.19.0.1
