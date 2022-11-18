@@ -41,9 +41,28 @@ docker service create \
 ```
 
 * liste des services du cluster: `docker service ls`
-* inspection d'un service: `docker service --pretty [service_name]`
+* inspection d'un service: `docker service inspect --pretty [service_name]`
 * détail des conteneurs d'un service (task): `docker service ps [service_name]`
 * les logs du service: `docker service logs [service_name]`
 * suppression du service: `docker service rm [service_name]`
 * attention: on ne stoppe ni démarre un sevrvice !!!
 
+## mise à jour d'un service : rolling update
+
+* mise à jour de tous les aspects d'un service
+  - image des conteneurs
+  - config réseaux des conteneurs 
+  - volumes
+  - ressources dispo ...
+  - repliques : `docker service scale`
+
+* montée en versions
+  - préalable: établir un timeout entre 2 mises à jours de conteneurs pour un même service
+  ```
+  docker service create \
+  --name helloswarm \
+  --replicas 2 \
+  --update-delay 10s \
+  alpine:3.16 \
+  ping 8.8.8.8
+  ```
