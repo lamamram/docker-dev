@@ -52,7 +52,7 @@ docker service create \
 * mise à jour de tous les aspects d'un service
   - image des conteneurs: `--image [new_image]`
   - commande des tâches: `--args "new command"`
-  - config réseaux des conteneurs
+  - config réseaux des conteneurs `--network-add, --network-rm ...`
   - volumes
   - ressources dispo ...
   - repliques : `docker service scale`
@@ -81,7 +81,7 @@ docker service create \
 
 ## configuration réseau mesh
 
-* l'option `--publish published=8080, target=80` pilote l'utilisation du réseau 'mesh' ou réseau maillé de docker swarm par défaut
+* l'option `--publish published=8080,target=80` pilote l'utilisation du réseau 'mesh' ou réseau maillé de docker swarm par défaut
 * quelque soit le noeud public sur lequel on demande le port publié, on aura accès au service
 * cette disponibilité est assurée par des agents d'équilibrage de charge "load balancer" installé sur tous les noeuds
 
@@ -92,3 +92,18 @@ docker service create \
 
 * ajout d'un service au réseau
   - `docker service update --network-add app_net nginx`
+
+* tester le service java_app sur un réseau overlay
+  - pb: l'image custom java_tomcat:1.0 n'existe a priori que sur le manager
+  - les images doivent être téléchargeables depuis tous les noeuds ==> installer un service registry !!
+  - WorkAround: utiliser les dossiers partagés /vagrant des VM vagrant
+    + `docker save -o [/path/to/java_tomcat.tar] java_tomcat:1.0`: svg au format tar
+    + `sudo docker load -i java_tomcat.tar` : charger sur worker1 et 2 à partir du tar dans /vagrant
+  
+  - création des deux services httpd et tomcat sur le réseau app_net
+    + reconnaissance des **noms de services comme alias réseaux**
+  ```
+  docker service create --name tomcat --replicas 2 --network app_net java_tomcat:1.0
+  
+  docker service create --name httpd --replicas 2 --network app_net --publish published=8081,target=80 java_httpd:1.0
+  ```
