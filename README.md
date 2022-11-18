@@ -35,3 +35,7 @@
 ## 9. création d"'un cluster (setup docker swarm)
 
 * [voir ici](./parts/setup.md)
+
+## 10. Docker Swarm
+
+* [voir ici](./parts/swarm.md)

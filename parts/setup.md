@@ -12,7 +12,10 @@
 * voir Vagrantfile
   - ajout de deux tableaux de définition de machines (worker1 et worker2)
   - `vagrant up` crée ou lance les machines d'un coup
-  - `vagrant ssh formation.lan` pour cibles une connexion à une machine
+  - `vagrant ssh formation.lan` pour cibler une connexion à une machine
+  - on provisionne la copie de la clé privée de windows vers formation.lan (cf infra)
+  - on provisionne l'ajout des deux workers comme hôtes docker (cf infra)
+    + script `add_machines.sh`
 
 * installation de docker-machine sur le noeud formation.lan
   - ajout des commandes d'install au script `install_docker.sh`
