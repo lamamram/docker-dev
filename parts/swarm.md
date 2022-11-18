@@ -40,6 +40,10 @@ docker service create \
   ping 8.8.8.8
 ```
 
-* verification: `docker service ls`
-* inspection: `docker service --pretty [service_name]`
+* liste des services du cluster: `docker service ls`
+* inspection d'un service: `docker service --pretty [service_name]`
+* détail des conteneurs d'un service (task): `docker service ps [service_name]`
+* les logs du service: `docker service logs [service_name]`
+* suppression du service: `docker service rm [service_name]`
+* attention: on ne stoppe ni démarre un sevrvice !!!
 
