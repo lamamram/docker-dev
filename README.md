@@ -31,3 +31,7 @@
 ## 8. registre d'images privé
 
 * [voir ici](./parts/registry.md)
+
+## 9. création d"'un cluster (setup docker swarm)
+
+* [voir ici](./parts/setup.md)
