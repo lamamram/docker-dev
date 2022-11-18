@@ -103,7 +103,32 @@ docker service create \
   - création des deux services httpd et tomcat sur le réseau app_net
     + reconnaissance des **noms de services comme alias réseaux**
   ```
-  docker service create --name tomcat --replicas 2 --network app_net java_tomcat:1.0
+  docker service create \
+    --name tomcat \
+    --replicas 2 \
+    --network app_net \
+    java_tomcat:1.0
   
-  docker service create --name httpd --replicas 2 --network app_net --publish published=8081,target=80 java_httpd:1.0
+  docker service create \
+    --name httpd \
+    --replicas 2 \
+    --network app_net \
+    --publish published=8081,target=80 \
+    java_httpd:1.0
   ```
+
+  ## déploiement sur le cluster via docker compose
+
+  * modification du docker-compose.yml
+    - voir swarm_stack_java/docker-compose.yml
+  
+  * déploiement de la stack
+  ```
+  docker stack deploy \
+    --compose-file swarm_stack_java/docker-compose.yml \
+    java_stack
+  ```
+
+  * analyse de la stack
+    - `docker stack ls`
+    - `docker stack ps [stack_name]`

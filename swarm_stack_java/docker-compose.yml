@@ -1,0 +1,53 @@
+---
+version: '3.9'
+
+services:
+  httpd:
+    image: java_httpd:1.0
+    depends_on:
+      - tomcat
+    ports:
+      - 8081:80
+    networks:
+      - stack_java
+    deploy:
+      endpoint_mode: vip
+      mode: replicated
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 3s
+        max_attempts: 3
+      update_config:
+        delay: 5s
+        parallelism: 2
+  
+  tomcat:
+    image: java_tomcat:1.0
+    networks:
+      - stack_java
+    # config swarm dans deploy
+    deploy:
+      # vip => utlisation du mesh network
+      endpoint_mode: vip
+      # endpoint_mode: dnsrr ==> configurer le service dns pour
+      # pointer sur tel ou tel service 
+      mode: replicated
+      # mode: global => une réplique par noeud
+      replicas: 2
+      # configuration des redémarrages après erreur
+      restart_policy:
+        condition: on-failure
+        delay: 3s
+        max_attempts: 3
+      # rolling update
+      update_config:
+        delay: 5s
+        parallelism: 2
+      
+
+  
+networks:
+  stack_java:
+    driver: overlay
+    name: stack_java
