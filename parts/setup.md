@@ -43,3 +43,16 @@
   - `eval $(docker-machine env -u)`: revenir sur la machine cliente docker-machine (unset)
   - `docker-machine ssh [machine_name]`: connexion sur la machine distante
 
+* test : déploiement de la stack php sur worker1
+  ```
+  eval $(docker-machine env worker1)
+  cd /vagrant/stack_php
+  docker compose up -d
+  docker compose ps
+  eval $(docker-machine env -u)
+  ``` 
+
+  - attention: les bind mounts (-v /src/:/dest/) fonctionnent car le dossier source /vagrant existe sur toutes les vm (fonctionnalité vagrant)
+  - dans un cluster standard, il faut configurer un driver de volume donnant accès à une machine sur le réseau qui fournit les volumes (config avancée)
+  - si le service ne démarre pas (nginx) penser à convertir les fichiers de conf en fin de ligne linux avec la commande `vim -c ":set ff=unix" -c ":wq" [file]`
+
