@@ -63,6 +63,17 @@ docker service create \
   --name helloswarm \
   --replicas 2 \
   --update-delay 10s \
+  --
   alpine:3.16 \
   ping 8.8.8.8
   ```
+
+  - mise à jour de l'image : `docker service update --image [new_image] [service]`
+  - le service garde l'historique des conteneur de la version précédente en cas de rollback
+  - fixer la profondeur de l'historique défaut 5: `docker service update --task-history-limit n`
+
+  * mises à jour secondaires
+
+  - ex: modifier le délais entre 2 phases d'une update
+  - ex: modifier le nb de tâches mises à jour par phase
+  `docker service update --update-delay --update-parallelism [service_name]`
