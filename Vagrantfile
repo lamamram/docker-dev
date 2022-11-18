@@ -6,18 +6,13 @@
 #----------------------
 # vagrant ssh [NAME|ID]
 # access-token: myusine xYph6TpAt1yJ1hJiS3QN
+require_relative "globals.rb"
 Vagrant.configure(2) do |config|
-  # interface réseau à utiliser (ipconfig /all)
-  interface = "Intel(R) Ethernet Connection (7) I219-LM #2"
-  # gamme d'ip à utiliser
-  range = "192.168.1.3"
-  # masque de sous réseau
-  cidr = "24"
-
+   
   [
-    ["worker1.lan", "1024", "1", "ubuntu/focal64", "#{range}1"],
-    ["worker2.lan", "1024", "1", "ubuntu/focal64", "#{range}2"],
-    ["formation.lan", "2048", "2", "ubuntu/focal64", "#{range}0"],
+    ["worker1.lan", "1024", "1", "ubuntu/focal64", "#{$range}1"],
+    ["worker2.lan", "1024", "1", "ubuntu/focal64", "#{$range}2"],
+    ["formation.lan", "2048", "2", "ubuntu/focal64", "#{$range}0"],
   ].each do |vmname,mem,cpu,os,ip|
     config.vm.define "#{vmname}" do |machine|
 
@@ -31,9 +26,9 @@ Vagrant.configure(2) do |config|
       machine.vm.box = "#{os}"
       machine.vm.hostname = "#{vmname}"
       machine.vm.network "public_network",
-        bridge: "#{interface}",
+        bridge: "#{$interface}",
         ip: "#{ip}",
-        netmask: "#{cidr}"
+        netmask: "#{$cidr}"
       machine.ssh.insert_key = false
       if vmname == "formation.lan"
         # copie la clé privée pour docker-machine / swarm
@@ -46,9 +41,14 @@ Vagrant.configure(2) do |config|
         # lancer l'install de docker dès le lancement
         machine.vm.provision "shell", 
           path: "install_docker.sh"
-        machine.vm.provision "shell", 
-          path: "add_machines.sh",
-          args: ["#{range}"]
+        [
+            ["add_machines.sh", ["#{$range}"], false]
+        ].each do |path,args,priv|
+          machine.vm.provision "shell", 
+            path: "#{path}",
+            args: args,
+            privileged: priv
+        end
       end
     end
   end

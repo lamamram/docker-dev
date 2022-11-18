@@ -1,3 +1,4 @@
 .vagrant/
 *.tar
 insecure_private_key
+globals.rb
