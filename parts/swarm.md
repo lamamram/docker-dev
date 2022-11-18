@@ -77,3 +77,10 @@ docker service create \
   - ex: modifier le délais entre 2 phases d'une update
   - ex: modifier le nb de tâches mises à jour par phase
   `docker service update --update-delay --update-parallelism [service_name]`
+
+## configuration réseau mesh
+
+* l'option `--publish published=8080, target=80` pilote l'utilisation du réseau 'mesh' ou réseau maillé de docker swarm par défaut
+* quelque soit le noeud public sur lequel on demande le port publié, on aura accès au service
+* cette disponibilité est assurée par des agents d'équilibrage de charge "load balancer" installé sur tous les noeuds
+
