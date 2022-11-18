@@ -50,8 +50,9 @@ docker service create \
 ## mise à jour d'un service : rolling update
 
 * mise à jour de tous les aspects d'un service
-  - image des conteneurs
-  - config réseaux des conteneurs 
+  - image des conteneurs: `--image [new_image]`
+  - commande des tâches: `--args "new command"`
+  - config réseaux des conteneurs
   - volumes
   - ressources dispo ...
   - repliques : `docker service scale`
@@ -84,3 +85,10 @@ docker service create \
 * quelque soit le noeud public sur lequel on demande le port publié, on aura accès au service
 * cette disponibilité est assurée par des agents d'équilibrage de charge "load balancer" installé sur tous les noeuds
 
+## relier les conteneur à travers les noeuds (overlay network)
+
+* création sur le manager d'un réseau de type overlay qui couvre tous les noeuds
+  - `docker network create --driver overlay app_net`
+
+* ajout d'un service au réseau
+  - `docker service update --network-add app_net nginx`
