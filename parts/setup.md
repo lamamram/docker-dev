@@ -33,3 +33,13 @@
     --generic-ssh-key ~/.ssh/insecure_private_key \
     worker1
   ```
+
+* quelques commandes docker-machine
+  - `docker-machine ls`: afficher les hôtes docker reliés à la machine courante
+  -  `docker-machine config`: config de connexion
+  -  `docker-machine env [machine_name]`: retourne les export de variables d'env à exécuter pour rediriger la CLI docker sur le serveur docker (dockerd / daemon docker) de [machine_name]
+  - `eval $(docker-machine env [machine_name])`: exécute les exports pour pointer sur une autre machine
+    + dès lors les commandes docker sont exécutées sur la machine distante
+  - `eval $(docker-machine env -u)`: revenir sur la machine cliente docker-machine (unset)
+  - `docker-machine ssh [machine_name]`: connexion sur la machine distante
+
