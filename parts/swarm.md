@@ -27,3 +27,19 @@
 
 ## lancement d'un service sur le cluster
 
+* un service est l'abstraction de l'accès à un conteneur sans savoir sur quelle machine il se trouve
+* le conteneur peut mêmeêtre répliqué sur plusieurs noeuds du cluster
+* pour 1 **service**, on peut avoir n conteneurs répliqués que l'on nomme **task**
+
+* exemple: 
+```
+docker service create \
+  --name helloswarm \
+  --replicas 2 \
+  alpine:3.16 \
+  ping 8.8.8.8
+```
+
+* verification: `docker service ls`
+* inspection: `docker service --pretty [service_name]`
+
