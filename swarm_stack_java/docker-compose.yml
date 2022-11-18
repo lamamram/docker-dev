@@ -35,6 +35,16 @@ services:
       mode: replicated
       # mode: global => une réplique par noeud
       replicas: 2
+      # limitations d'accès aux ressources (cgroups)
+      resources:
+        # limites phys. (au +)
+        limits:
+          cpus: "0.5"
+          memory: 256m
+        # limites min. (au -)
+        reservations:
+          cpus: "0.25"
+          memory: 128m
       # configuration des redémarrages après erreur
       restart_policy:
         condition: on-failure

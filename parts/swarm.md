@@ -132,3 +132,6 @@ docker service create \
   * analyse de la stack
     - `docker stack ls`
     - `docker stack ps [stack_name]`
+  
+  * relancer un conf
+    - `docker stack rm [stack_name] && docker deploy ...`
