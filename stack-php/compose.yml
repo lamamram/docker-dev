@@ -15,7 +15,30 @@ networks:
 volumes:
   db_data:
     name: db_data
-
+  nfs-vol-db:
+    name: nfs-vol-db
+    # les éléments du serveur NFS sont téléchargés dans l'emplacement local (/var/lib/docker/volumes/...)
+    driver: local
+    # configuraiton du volumes dépendent de la technologie attendues
+    driver_opts:
+      type: nfs
+      # nomenclature NFS
+      o: addr=docker.lan,ro
+      device: :/mnt/nfs-dir/initdb.d
+  nfs-vol-php:
+    name: nfs-vol-php
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=docker.lan,ro
+      device: :/mnt/nfs-dir/app
+  nfs-vol-web:
+    name: nfs-vol-web
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=docker.lan,ro
+      device: :/mnt/nfs-dir/nginx-conf.d
 
 # service = ensemble de replicas (réplications) d'une config. de conteneur, dispatchés dans l'infra
 services:
@@ -30,7 +53,8 @@ services:
     networks:
       - stack-php
     volumes:
-      - ./mariadb-init.sql:/docker-entrypoint-initdb.d/mariadb-init.sql:ro
+      # - ./mariadb-init.sql:/docker-entrypoint-initdb.d/mariadb-init.sql:ro
+      - nfs-vol-db:/docker-entrypoint-initdb.d:ro
       - db_data:/var/lib/mysql
     
   php:
@@ -40,7 +64,8 @@ services:
     networks:
       - stack-php
     volumes:
-      - ./index.php:/srv/index.php:ro
+      # - ./index.php:/srv/index.php:ro
+      - nfs-vol-php:/srv:ro
     depends_on:
       - db
   
@@ -51,7 +76,8 @@ services:
     networks:
       - stack-php
     volumes:
-      - ./vhost.conf:/etc/nginx/conf.d/vhost.conf:ro
+      # - ./vhost.conf:/etc/nginx/conf.d/vhost.conf:ro
+      - nfs-vol-web:/etc/nginx/conf.d:ro
     ports:
       - 8080:80
     depends_on:
