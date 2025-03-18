@@ -1,6 +1,9 @@
 ---
 
 networks:
+  # exemple d'utilisation de réseau préexistant à la "stack" courante pour usage
+  # traefik: => reverse proxy / ingress controller + virtualhost
+  #   external: true
   stack-php:
     # fixer le nom
     name: stack-php
@@ -56,6 +59,9 @@ services:
       # - ./mariadb-init.sql:/docker-entrypoint-initdb.d/mariadb-init.sql:ro
       - nfs-vol-db:/docker-entrypoint-initdb.d:ro
       - db_data:/var/lib/mysql
+    profiles:
+      # arbitraire
+      - run
     
   php:
     container_name: stack-php-fpm
@@ -68,6 +74,8 @@ services:
       - nfs-vol-php:/srv:ro
     depends_on:
       - db
+    profiles:
+      - run
   
   web:
     container_name: stack-php-nginx
@@ -82,3 +90,26 @@ services:
       - 8080:80
     depends_on:
       - php
+    profiles:
+      - run
+
+#### Tâches d'administration #####
+  # à exécuter avec docker compose run --rm <service_name>
+
+  # backup à froid => en dehors des conteneurs, en utilisant uniquement le volume db_data
+  # 1. on accroche le volume db_data dans note service backup
+  # 2. on comprime le dossier des bdds en tar.gz
+  # 3. je fais sortir l'archive avec un bind mount 
+  backup:
+    image: alpine:3.21
+    # pas besoin de réseaux
+    network_mode: none
+    volumes:
+      # /data est créé à la volée !!!
+      - db_data:/data:ro
+      # les deux dossiers dump côté host et conteneurs sont créés à la volée !!!
+      - ./dump:/dump
+    # écriture "tokenisée" => utilise la compatibilité entre YAML et JSON
+    command: ["tar", "-cvzf", "/dump/dump.tar.gz", "/data"]
+    profiles:
+      - task
