@@ -20,20 +20,24 @@ docker network create \
 
 #### CONTENEURS #######
 
+# --env MARIADB_USER=test \
+# --env MARIADB_PASSWORD=roottoor \
+# --env MARIADB_DATABASE=test \
+# --env MARIADB_ROOT_PASSWORD=roottoor \
+
 docker run \
        --name stack-php-mariadb \
        -d --restart unless-stopped \
-       --env MARIADB_USER=test \
-       --env MARIADB_PASSWORD=roottoor \
-       --env MARIADB_DATABASE=test \
-       --env MARIADB_ROOT_PASSWORD=roottoor \
+       --env-file .env \
        --net stack-php \
+       -v ./mariadb-init.sql:/docker-entrypoint-initdb.d/mariadb-init.sql:ro \
+       -v db_data:/var/lib/mysql \
        mariadb:11.7-ubi
 
 docker run \
        --name stack-php-fpm \
        -d --restart unless-stopped \
-       -v ./index.php:/srv/index.php \
+       -v ./index.php:/srv/index.php:ro \
        --net stack-php \
        bitnami/php-fpm:8.4-debian-12
 
@@ -41,6 +45,6 @@ docker run \
        --name stack-php-nginx \
        -d --restart unless-stopped \
        -p 8080:80 \
-       -v ./vhost.conf:/etc/nginx/conf.d/vhost.conf \
+       -v ./vhost.conf:/etc/nginx/conf.d/vhost.conf:ro \
        --net stack-php \
        nginx:1.27.4-bookworm
