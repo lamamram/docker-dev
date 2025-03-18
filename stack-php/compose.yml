@@ -113,3 +113,18 @@ services:
     command: ["tar", "-cvzf", "/dump/dump.tar.gz", "/data"]
     profiles:
       - task
+  hot_backup:
+    image: alpine:3.21
+    networks:
+      - stack-php
+    # accroche auto. tous les volumes d'un conteneur donné
+    volumes_from:
+      - db
+    volumes:
+      - ./dump:/dump
+    command: ["tar", "-cvzf", "/dump/dump.tar.gz", "/var/lib/mysql"]
+    # a besoin du profile run !!!
+    depends_on:
+      - db
+    profiles:
+      - task
