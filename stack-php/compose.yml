@@ -41,6 +41,8 @@ services:
       - stack-php
     volumes:
       - ./index.php:/srv/index.php:ro
+    depends_on:
+      - db
   
   web:
     container_name: stack-php-nginx
@@ -52,3 +54,5 @@ services:
       - ./vhost.conf:/etc/nginx/conf.d/vhost.conf:ro
     ports:
       - 8080:80
+    depends_on:
+      - php
