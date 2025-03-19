@@ -16,7 +16,9 @@ LABEL stack="java"
 LABEL stack.version="1.0"
 
 ## écraser le httpd.conf natif de l'image de base avec ma propre conf
-COPY ./httpd.conf /usr/local/apache2/conf
+# COPY ./httpd.conf /usr/local/apache2/conf
+# utiliser le .dockerignore dans ce cas !!!
+COPY . /usr/local/apache2/conf
 
 ## ajouter le dossier /usr/local/apache2/conf/sites
 RUN mkdir /usr/local/apache2/conf/sites

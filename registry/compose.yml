@@ -26,8 +26,10 @@ services:
     networks:
       - registry
     volumes:
+      ## destinations arbitraires
       - ./certs:/certs:ro
       - ./auth:/auth:ro
+      ## destination attendue de la configuration
       - ./conf:/etc/docker/registry:ro
 
 
