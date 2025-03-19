@@ -42,3 +42,13 @@ services:
       - 8081:80
     depends_on:
       - tomcat
+    develop:
+      watch:
+        # pour le code
+        # - action: sync+restart
+        #   path: ./httpd/java_app.conf
+        #   target: /usr/local/apache2/conf/sites/java_app.conf
+        # changer le Dockerfile
+        - action: rebuild
+          path: ./httpd/java_app.conf
+          target: /usr/local/apache2/conf/sites/java_app.conf
