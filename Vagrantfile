@@ -31,6 +31,7 @@ Vagrant.configure(2) do |config|
     { :hostname => "#{hostname}", :ip => "#{range}0", :mem => 2048, :cpus => 2 },
   ]
 
+
   etcHosts = ""
   NODES.each do |node|
     etcHosts += "echo '" + node[:ip] + "   " + node[:hostname] + "' >> /etc/hosts" + "\n"
