@@ -14,6 +14,7 @@ COPY ./httpd.conf /usr/local/apache2/conf
 RUN mkdir /usr/local/apache2/conf/sites
 
 ## ajouter le virtualhost tomcat
+COPY ./java_app.conf /usr/local/apache2/conf/sites
 
 ## déclarer les ports écoutés par le httpd
 ## 80 est vrai et 443 est faux => cf Listen de httpd.conf

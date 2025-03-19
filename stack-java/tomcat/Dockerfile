@@ -7,6 +7,13 @@ LABEL created="2025-03-19"
 LABEL stack="java"
 LABEL stack.version="1.0"
 
+## ces variables sont modifiables au moment du docker run !!!
+ENV TRUC=machin
+
+## ces variables sont modifiables au moment du docker build !!!
+ARG TOMCAT_VERSION_MAJOR=9
+ARG TOMCAT_VERSION_FULL
+
 ## BEST PRACTICE n°1: on place les couches qui change le - souvent
 # installer java et nettoyer le dépôt
 ## BEST PRACTICE n°2: rassembler les commandes de création/modification/suppression dans les mêmes couches
@@ -16,13 +23,13 @@ LABEL stack.version="1.0"
 # ADD https://downloads.apache.org/tomcat/tomcat-9/v9.0.102/bin/apache-tomcat-9.0.102.tar.gz /opt/tomcat
 # ajouter un utilisateur tomcat avec le dossier /opt/tomcat comme home et un group tomcat
 ## BEST PRACTICE n°3: travailler en flux ( | ) et non en fichier !!!
-## télécharger l'application sample https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/sample.war dans le dossier home 
-## spécifier le propriétaire et groupe à tomcat 
+# télécharger l'application sample https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/sample.war dans le dossier home 
+# spécifier le propriétaire et groupe à tomcat 
 RUN apt-get update -q && \
     apt-get install -y -q openjdk-17-jre-headless curl && \
     rm -rf /var/lib/apt/cache/lists/* && \
     mkdir /opt/tomcat && \
-    curl https://downloads.apache.org/tomcat/tomcat-9/v9.0.102/bin/apache-tomcat-9.0.102.tar.gz | \
+    curl https://downloads.apache.org/tomcat/tomcat-${TOMCAT_VERSION_MAJOR}/v${TOMCAT_VERSION_FULL}/bin/apache-tomcat-${TOMCAT_VERSION_FULL}.tar.gz | \
     tar -xzv -C /opt/tomcat --strip-components=1 && \
     useradd -M -d /opt/tomcat -U tomcat && \
     curl https://tomcat.apache.org/tomcat-10.1-doc/appdev/sample/sample.war -o /opt/tomcat/webapps/sample.war && \
